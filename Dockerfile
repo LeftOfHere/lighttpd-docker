@@ -1,4 +1,4 @@
-FROM debian:buster-slim as builder
+FROM debian:stable-slim as builder
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ Europe/Amsterdam 
@@ -29,7 +29,7 @@ RUN cd /usr/local/src/lighttpd-${LIGHTTPD_VERSION} && ./autogen.sh && ./configur
     make && \
     make install
 
-FROM debian:buster-slim as service
+FROM debian:stable-slim as service
 
 COPY --from=builder /usr/local/sbin /usr/local/sbin
 COPY --from=builder /usr/local/lib /usr/local/lib
